@@ -1,0 +1,8 @@
+# 仅供参考：本项目按 Cloudflare Pages 网页部署，不需要运行 Wrangler。
+name = "domain-dual-manager"
+compatibility_date = "2026-10-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "domain-manager-db"
+database_id = "在 Cloudflare D1 页面查看并填写"

@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#090e1b">
+  <title>域名管理中心</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div class="glow glow-a"></div><div class="glow glow-b"></div>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><div class="brand-mark">D</div><div><b>DOMAIN CONTROL</b><small>双功能域名管理中心</small></div></div>
+      <div id="topStatus" class="status"><i></i> 系统就绪</div>
+    </header>
+
+    <section id="loginView" class="login-wrap">
+      <div class="login-card">
+        <div class="eyebrow">ADMIN CONSOLE</div>
+        <h1>欢迎回来<span>.</span></h1>
+        <p class="muted">登录以管理跳转域名与直连落地页</p>
+        <form id="loginForm">
+          <label>管理员账号<input value="admin" autocomplete="username" readonly></label>
+          <label>管理员密码<input id="password" type="password" placeholder="请输入后台密码" autocomplete="current-password" required></label>
+          <button class="primary full" type="submit">安全登录 <span>→</span></button>
+          <div id="loginError" class="error"></div>
+        </form>
+        <div class="secure-note">⌑ 管理会话采用签名 Cookie 保护</div>
+      </div>
+    </section>
+
+    <section id="appView" class="hidden">
+      <div class="welcome">
+        <div><div class="eyebrow">OVERVIEW / 01</div><h1>域名控制台<span>.</span></h1><p class="muted">集中管理跳转域名与直连落地页。</p></div>
+        <button id="logoutBtn" class="ghost">退出登录 ↗</button>
+      </div>
+      <div class="stats">
+        <article class="stat"><span>已配置域名</span><strong id="totalCount">0</strong><small>全部域名</small></article>
+        <article class="stat"><span>运行中</span><strong id="activeCount">0</strong><small>已启用配置</small></article>
+        <article class="stat"><span>累计访问</span><strong id="visitCount">0</strong><small>服务端统计</small></article>
+      </div>
+      <section class="panel">
+        <div class="panel-head"><div><div class="eyebrow">DOMAIN ROUTING</div><h2>域名管理</h2></div><button id="addBtn" class="primary">＋ 添加域名</button></div>
+        <div class="toolbar"><input id="search" placeholder="搜索域名或目标地址…"><span id="listHint" class="muted small"></span></div>
+        <div class="table-wrap"><table><thead><tr><th>域名</th><th>模式</th><th>目标地址</th><th>访问量</th><th>状态</th><th>操作</th></tr></thead><tbody id="domainRows"><tr><td colspan="6" class="empty">正在加载…</td></tr></tbody></table></div>
+        <div class="mobile-list" id="mobileRows"></div>
+      </section>
+      <div class="footnote">提示：域名必须先添加到 Cloudflare Pages → Custom domains，再添加到这里。域名检测状态不代表第三方平台的安全评级。</div>
+    </section>
+    <footer>DOMAIN CONTROL PANEL <span>·</span> CLOUDFLARE EDGE</footer>
+  </main>
+
+  <dialog id="domainDialog">
+    <form id="domainForm" method="dialog">
+      <div class="dialog-head"><div><div class="eyebrow">DOMAIN CONFIGURATION</div><h2 id="dialogTitle">添加域名</h2></div><button type="button" id="closeDialog" class="icon-btn">✕</button></div>
+      <input type="hidden" id="domainId">
+      <label>域名主机名<input id="hostname" placeholder="go.example.com" required><small>只填写域名，不要填写 https://、路径或端口。</small></label>
+      <label>访问模式<select id="mode"><option value="redirect">域名跳转（302）</option><option value="direct">直连落地页（展示确认页面）</option></select></label>
+      <label>目标网址<input id="targetUrl" type="url" placeholder="https://www.example.com/" required></label>
+      <label>落地页标题<input id="pageTitle" maxlength="80" value="安全访问"></label>
+      <label>落地页说明<textarea id="pageDescription" maxlength="240">请确认目标地址后继续访问。</textarea></label>
+      <label class="check"><input id="enabled" type="checkbox" checked> 启用此域名</label>
+      <div id="formError" class="error"></div>
+      <div class="dialog-actions"><button type="button" id="cancelBtn" class="ghost">取消</button><button class="primary" type="submit">保存配置</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
